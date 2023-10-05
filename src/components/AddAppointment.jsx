@@ -2,6 +2,9 @@ import  { useState,useEffect } from 'react';
 import { Button, Modal, Table, FormControl, Badge } from 'react-bootstrap';
 import DatePicker from 'react-datepicker';
 import 'react-datepicker/dist/react-datepicker.css';
+import SuccessModal from './SuccessModal';
+import DeleteModal from './DeleteModal';
+import EditModal from './EditModal';
 
 function AddAppointment() {
   const [showAddModal, setShowAddModal] = useState(false);
@@ -340,70 +343,14 @@ function AddAppointment() {
       </Modal>
 
       {/* Modal for editing appointment */}
-      <Modal show={showEditModal} onHide={handleCloseEditModal}>
-        <Modal.Header closeButton>
-          <Modal.Title>
-            Edit Appointment for {selectedClient?.firstName} {selectedClient?.lastName}
-          </Modal.Title>
-        </Modal.Header>
-        <Modal.Body>
-          <DatePicker
-            selected={formData.date}
-            onChange={(date) => setFormData({ ...formData, date })}
-            dateFormat="MM/dd/yyyy"
-          />
-          <div className="mb-3">
-            <label>Time</label>
-            <input
-              type="time"
-              className="form-control"
-              value={formData.time}
-              onChange={(e) => setFormData({ ...formData, time: e.target.value })}
-            />
-          </div>
-        </Modal.Body>
-        <Modal.Footer>
-          <Button variant="secondary" onClick={handleCloseEditModal}>
-            Close
-          </Button>
-          <Button variant="primary" onClick={handleEditAppointment}>
-            Save Changes
-          </Button>
-        </Modal.Footer>
-      </Modal>
+  
+      <EditModal showEditModal={showEditModal} handleCloseEditModal={handleCloseEditModal} selectedClient={selectedClient} formData={formData} setFormData={setFormData}handleEditAppointment={handleEditAppointment}/>
 
       {/* Modal for success message */}
-      <Modal show={showSuccessModal} onHide={handleCloseSuccessModal}>
-        <Modal.Header closeButton>
-          <Modal.Title>Appointment Added Successfully</Modal.Title>
-        </Modal.Header>
-        <Modal.Body>
-          Your appointment has been added successfully!
-        </Modal.Body>
-        <Modal.Footer>
-          <Button variant="secondary" onClick={handleCloseSuccessModal}>
-            Close
-          </Button>
-        </Modal.Footer>
-      </Modal>
+      <SuccessModal showSuccessModal={showSuccessModal} handleCloseSuccessModal={handleCloseSuccessModal}/>
 
       {/* Modal for confirmation on delete */}
-      <Modal show={showDeleteModal} onHide={handleCloseDeleteModal}>
-        <Modal.Header closeButton>
-          <Modal.Title>Confirm Delete</Modal.Title>
-        </Modal.Header>
-        <Modal.Body>
-          Are you sure you want to delete this appointment?
-        </Modal.Body>
-        <Modal.Footer>
-          <Button variant="secondary" onClick={handleCloseDeleteModal}>
-            Cancel
-          </Button>
-          <Button variant="danger" onClick={confirmDeleteAppointment}>
-            Delete
-          </Button>
-        </Modal.Footer>
-      </Modal>
+      <DeleteModal showDeleteModal={showDeleteModal} handleCloseDeleteModal={handleCloseDeleteModal} confirmDeleteAppointment={confirmDeleteAppointment} />
       <Modal show={showAddClientModal} onHide={() => setShowAddClientModal(false)}>
         <Modal.Header closeButton>
           <Modal.Title>Add New Client</Modal.Title>
