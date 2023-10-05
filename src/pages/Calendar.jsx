@@ -39,7 +39,7 @@ function Calendar(  ) {
 
   return (
     <div>
-      <h2>Calendar</h2>
+      {/* <h2>Calendar</h2> */}
       <BigCalendar
         localizer={localizer}
         events={events}

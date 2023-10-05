@@ -7,14 +7,17 @@ function App() {
 
   return (
     <div>
-    <Router>
-    <Header />
-    <Routes>
-       <Route path="/" element={<Dashboard />} />
-        <Route path="/calendar" element={<Calendar/>}/>
-      </Routes>
+      <Router>
+        <div className=''>
+            <Header />
+            <div className='mx-10 my-4 '>
+              <Routes>
+                <Route path="/" element={<Dashboard />} />
+                <Route path="/calendar" element={<Calendar />} />
+              </Routes>
+          </div>
+        </div>
       </Router>
-      
     </div>
   )
 }

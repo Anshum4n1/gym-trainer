@@ -1,5 +1,5 @@
 
-import { Navbar, Container, Nav } from 'react-bootstrap';
+import { Navbar, Nav } from 'react-bootstrap';
 import { Link } from 'react-router-dom';
 import { useMediaQuery } from 'react-responsive';
 import { FaCalendarAlt } from 'react-icons/fa';
@@ -10,22 +10,33 @@ function Header() {
 
   return (
     <Navbar bg="dark" variant="dark">
-      <Container fluid>
-        <Link to="/">
-          <Navbar.Brand>Easy Appointment</Navbar.Brand>
+      <div className='mx-5 flex justify-between items-center py-1 w-full '>
+        <Link to="/" className='no-underline' >
+          <div className=' text-2xl text-white    ' >Gym Appointments</div>
         </Link>
-        <Nav className="ml-auto">
+        <Nav className="ml-5 ">
           {isSmallScreen ? (
-            <Link to="/calendar" className="nav-link">
+            <>
+            <Link to="/" className="nav-link">
+              <FaCalendarAlt />
+            </Link> <Link to="/calendar" className="nav-link">
               <FaCalendarAlt />
             </Link>
+            </>
+           
           ) : (
+            <>
+            <Link to="/" className="nav-link">
+              Home
+            </Link>
             <Link to="/calendar" className="nav-link">
               Calendar
             </Link>
+
+            </>
           )}
         </Nav>
-      </Container>
+      </div>
     </Navbar>
   );
 }
