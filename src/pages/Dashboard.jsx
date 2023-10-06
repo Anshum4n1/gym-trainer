@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react';
-import { Button, Table, FormControl, Badge } from 'react-bootstrap';
+import { Button, FormControl } from 'react-bootstrap';
 import 'react-datepicker/dist/react-datepicker.css';
 import SuccessModal from '../components/SuccessModal';
 import DeleteModal from '../components/DeleteModal';
@@ -16,10 +16,6 @@ const CLIENT_DATA = [
   { id: 4, firstName: 'Emily', lastName: 'Brown', location: 'Houston', appointments: [] },
   { id: 5, firstName: 'William', lastName: 'Jones', location: 'Miami', appointments: [] },
   { id: 6, firstName: 'Olivia', lastName: 'Davis', location: 'Seattle', appointments: [] },
-  { id: 7, firstName: 'Liam', lastName: 'Wilson', location: 'San Francisco', appointments: [] },
-  { id: 8, firstName: 'Sophia', lastName: 'Lee', location: 'Boston', appointments: [] },
-  { id: 9, firstName: 'Lucas', lastName: 'Garcia', location: 'Denver', appointments: [] },
-  { id: 10, firstName: 'Ava', lastName: 'Martinez', location: 'Atlanta', appointments: [] },
   // Add more dummy clients here
 ]
 
@@ -238,50 +234,68 @@ function Dashboard() {
           Add Client
         </Button>
       </div>
+      <div className="overflow-hidden border border-gray-200 shadow-md md:rounded-lg">
+        <table className="min-w-full divide-y divide-gray-200   ">
+          <thead className="bg-slate-200 ">
+            <tr>
 
-      <Table striped bordered responsive>
-        <thead>
-          <tr>
-            <th className='text-lg font-medium' >First Name</th>
-            <th className='text-lg font-medium' >Last Name</th>
-            <th className='text-lg font-medium' >Location</th>
-            <th className='text-lg font-medium' >Appointments</th>
-            <th className='text-lg font-medium' >Action</th>
-          </tr>
-        </thead>
-        <tbody>
-          {clients?.map((client, index) => (
-            <tr key={client.id}>
-              <td>
-                <FormControl
-                  type="text"
-                  value={client.firstName}
-                  onChange={(e) => handleFirstNameChange(e, index)}
-                />
-              </td>
-              <td>
-                <FormControl
+
+              <th scope="col" className="px-12 py-3.5  text-left rtl:text-right text-gray-800 font-semibold ">
+                First Name
+              </th>
+              <th scope="col" className="px-12 py-3.5  text-left rtl:text-right text-gray-800 font-semibold ">
+                Last Name
+              </th>
+
+              <th scope="col" className="px-4 py-3.5  text-left rtl:text-right text-gray-800 font-semibold ">
+                Location
+              </th>
+
+              <th scope="col" className="px-4 py-3.5  text-left rtl:text-right text-gray-800 font-semibold ">Appointments</th>
+
+              <th scope="col" className="px-4 py-3.5  text-left rtl:text-right text-gray-800 font-semibold ">Action</th>
+
+            </tr>
+          </thead>
+          <tbody className="bg-white divide-y divide-gray-200 ">
+            {clients?.map((client, index) => (
+              <tr key={client.id} className=' hover:bg-slate-50 '>
+                <td className="px-4 py-0 text-sm font-medium whitespace-nowrap">
+           
+                  <FormControl
+                    type="text"
+                    value={client.firstName}
+                    onChange={(e) => handleFirstNameChange(e, index)}
+                  />
+                </td>
+                <td className="px-12 py-2 text-sm font-medium whitespace-nowrap">
+          
+                  <FormControl
                   type="text"
                   value={client.lastName}
                   onChange={(e) => handleLastNameChange(e, index)}
                 />
-              </td>
-              <td>
-                <FormControl
+                </td>
+                <td className="px-4 py-2 text-sm whitespace-nowrap">
+             
+                  <FormControl
                   type="text"
                   value={client.location}
                   onChange={(e) => handleLocationChange(e, index)}
                 />
-              </td>
-              <td>
-                <ul>
+                </td>
+                <td className="px-4 py-2 text-sm whitespace-nowrap ">
+                <ul className='pt-3 px-0 ' >
                   {client.appointments.map((appointment, index) => (
                     <li key={index} style={{ marginBottom: '10px' }}>
-                      <Badge variant="light" className="mr-2">
+                    <Button
+                        size="sm"
+                        style={{ marginLeft: '10px', color: 'white' }}
+                        >
+
                         {appointment.date} at {appointment.time}
-                      </Badge>
+                        </Button>
                       <Button
-                        variant="info"
                         size="sm"
                         style={{ marginLeft: '10px', color: 'white' }}
                         onClick={() => handleShowEditModal(client, appointment)}
@@ -299,9 +313,10 @@ function Dashboard() {
                     </li>
                   ))}
                 </ul>
-              </td>
+                </td>
 
-              <td className=' text-center '>
+
+                <td className="px-4 py-2 text-sm whitespace-nowrap">
                 <Button
                   variant="primary"
                   size="sm"
@@ -309,11 +324,15 @@ function Dashboard() {
                 >
                   Add Appointment
                 </Button>
-              </td>
-            </tr>
-          ))}
-        </tbody>
-      </Table>
+                </td>
+              </tr>
+            ))}
+          </tbody>
+
+
+        </table>
+      </div>
+
 
       {/* Modal for adding appointment */}
       <AddAppointment setFormData={setFormData} selectedClient={selectedClient} showAddModal={showAddModal} handleCloseAddModal={handleCloseAddModal} formData={formData} handleAddAppointment={handleAddAppointment} />

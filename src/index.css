@@ -13,7 +13,18 @@
 
 body{
   font-family: 'Roboto', sans-serif !important;
+  background-color: rgb(218, 239, 255) !important;
 }
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+
+.form-control{
+  font-size: 14px !important;
+}
+.rbc-calendar{
+  background-color: white !important;
+  padding: 25px 20px;
+  border-radius: 10px;
+}

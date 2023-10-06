@@ -9,7 +9,7 @@ function Header() {
   const isSmallScreen = useMediaQuery({ maxWidth: 768 }); // Define your breakpoint here
 
   return (
-    <Navbar bg="dark" variant="dark">
+    <Navbar  variant="dark" className=' bg-sky-900 '>
       <div className='mx-5 flex justify-between items-center py-1 w-full '>
         <Link to="/" className='no-underline' >
           <div className=' text-2xl text-white    ' >Gym Appointments</div>
@@ -26,10 +26,10 @@ function Header() {
            
           ) : (
             <>
-            <Link to="/" className="nav-link">
+            <Link to="/" className="nav-link text-white text-lg ">
               Home
             </Link>
-            <Link to="/calendar" className="nav-link">
+            <Link to="/calendar" className="nav-link text-white text-lg">
               Calendar
             </Link>
 

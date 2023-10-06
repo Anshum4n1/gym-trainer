@@ -3,6 +3,7 @@ import DatePicker from 'react-datepicker';
 import 'react-datepicker/dist/react-datepicker.css';
 
 
+
 function AddAppointment({setFormData,selectedClient,showAddModal,handleCloseAddModal,formData,handleAddAppointment}) {
 
   return (
@@ -10,12 +11,14 @@ function AddAppointment({setFormData,selectedClient,showAddModal,handleCloseAddM
 
       {/* Modal for adding appointment */}
       <Modal show={showAddModal} onHide={handleCloseAddModal} centered>
+      
         <Modal.Header closeButton>
           <Modal.Title>
             Add Appointment for {selectedClient?.firstName} {selectedClient?.lastName}
           </Modal.Title>
         </Modal.Header>
         <Modal.Body>
+      
         <div className="mb-3 flex flex-col gap-1.5">
             <label>Date</label>
           <DatePicker
