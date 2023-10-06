@@ -2,7 +2,7 @@ import { Button, FormControl, Modal } from "react-bootstrap"
 
 function AddClient({showAddClientModal, setNewClientFormData,setShowAddClientModal,newClientFormData, handleAddClient}) {
   return (
-    <div> <Modal show={showAddClientModal} onHide={() => setShowAddClientModal(false)}>
+    <div> <Modal show={showAddClientModal} onHide={() => setShowAddClientModal(false)} centered>
     <Modal.Header closeButton>
       <Modal.Title>Add New Client</Modal.Title>
     </Modal.Header>

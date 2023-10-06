@@ -6,6 +6,8 @@ import DeleteModal from '../components/DeleteModal';
 import AddClient from '../components/AddClient';
 import EditModal from '../components/EditModal';
 import AddAppointment from '../components/AddAppointment';
+import DeleteIcon from '@mui/icons-material/Delete';
+import EditIcon from '@mui/icons-material/Edit';
 
 const CLIENT_DATA = [
   { id: 1, firstName: 'John', lastName: 'Doe', location: 'New York', appointments: [] },
@@ -183,9 +185,6 @@ function Dashboard() {
     setShowAddModal(false);
   };
 
-
-
-
   const handleDeleteAppointment = (client, appointmentIndex) => {
     setSelectedClient(client);
     setSelectedAppointment(appointmentIndex);
@@ -284,10 +283,10 @@ function Dashboard() {
                       <Button
                         variant="info"
                         size="sm"
-                        style={{ marginLeft: '10px' }}
+                        style={{ marginLeft: '10px', color: 'white' }}
                         onClick={() => handleShowEditModal(client, appointment)}
                       >
-                        Edit
+                        <EditIcon fontSize='small' color='white' />
                       </Button>
                       <Button
                         variant="danger"
@@ -295,7 +294,7 @@ function Dashboard() {
                         style={{ marginLeft: '10px' }}
                         onClick={() => handleDeleteAppointment(client, index)}
                       >
-                        Delete
+                        <DeleteIcon fontSize='small' />
                       </Button>
                     </li>
                   ))}
