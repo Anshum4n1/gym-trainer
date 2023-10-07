@@ -3,16 +3,6 @@
 
 This is a front-end web application for managing client data and appointments. It provides a user-friendly interface to add, edit, and delete clients and their appointments. The application also features a calendar view for visualizing appointments.
 
-## Table of Contents
-
-- [Prerequisites](#prerequisites)
-- [Getting Started](#getting-started)
-  - [Installation](#installation)
-  - [Running the Application](#running-the-application)
-- [Usage](#usage)
-- [Features](#features)
-- [Contributing](#contributing)
-
 
 ## Prerequisites
 
@@ -27,13 +17,13 @@ Before you begin, ensure you have met the following requirements:
 1. Clone the repository:
 
    ```bash
-   git clone https://github.com/your-username/client-management-app.git
+   git clone https://github.com/Anshum4n1/gym-trainer.git
    ```
 
 2. Navigate to the project directory:
 
    ```bash
-   cd client-management-app
+   cd gym-trainer
    ```
 
 3. Install the project dependencies:
@@ -50,12 +40,16 @@ Before you begin, ensure you have met the following requirements:
    npm start
    ```
 
-5. Open your web browser and visit `http://localhost:3000` to access the application.
+5. Open your web browser and visit `http://localhost:5173` to access the application.
 
 ## Usage
 
 - **Dashboard**: The dashboard is the main interface for managing clients and appointments. You can add new clients, edit existing client information, and schedule appointments for clients.
 
+- To add a client, click the "Add Client" button on the homepage.
+- To schedule an appointment, use the "Add Appointment" button in the table.
+- To make changes to an appointment, utilize the edit and delete buttons associated with a specific appointment.
+- Access the Calendar section by clicking the "Calendar" link in the navigation bar.
 - **Calendar**: The calendar page displays appointments in a visual calendar format. You can view appointments for different clients and dates.
 
 ## Features
@@ -67,18 +61,11 @@ Before you begin, ensure you have met the following requirements:
 - Delete appointments.
 - Responsive design for different screen sizes.
 
-## Contributing
+## Images
 
-Contributions are welcome! If you would like to contribute to this project, please follow these steps:
+![Home page](image.png)
 
-1. Fork the repository.
-2. Create a new branch for your feature or bug fix: `git checkout -b feature/new-feature`.
-3. Make your changes and commit them: `git commit -m "Add new feature"`.
-4. Push to the branch: `git push origin feature/new-feature`.
-5. Create a pull request.
+![Calendar page](image-1.png)
 
-
-
-
-
-
+---
+Thank you for reviewing and getting acquainted with our application. Looking forward to hearing from you.
