@@ -251,8 +251,8 @@ function Dashboard() {
           Add Client
         </Button>
       </div>
-      <div className="overflow-hidden border border-gray-200 shadow-md md:rounded-lg">
-        <table className="min-w-full divide-y divide-gray-200   ">
+      <div className="overflow-x-scroll sm:overflow-x-hidden border border-gray-200 shadow-md md:rounded-lg">
+        <table className=" w-full divide-y  divide-gray-200   ">
           <thead className="bg-slate-200 ">
             <tr>
 
@@ -277,7 +277,7 @@ function Dashboard() {
           <tbody className="bg-white divide-y divide-gray-200 ">
             {clients?.map((client, index) => (
               <tr key={client.id} className=' hover:bg-slate-50 '>
-                <td className="px-4 py-0 text-sm font-medium whitespace-nowrap">
+                <td className="px-2 sm:px-4 py-0 text-sm font-medium whitespace-nowrap">
            
                   <FormControl
                     type="text"
@@ -285,7 +285,7 @@ function Dashboard() {
                     onChange={(e) => handleFirstNameChange(e, index)}
                   />
                 </td>
-                <td className="px-12 py-2 text-sm font-medium whitespace-nowrap">
+                <td className="px-2 sm:px-4 py-2 text-sm font-medium whitespace-nowrap">
           
                   <FormControl
                   type="text"
@@ -293,7 +293,7 @@ function Dashboard() {
                   onChange={(e) => handleLastNameChange(e, index)}
                 />
                 </td>
-                <td className="px-4 py-2 text-sm whitespace-nowrap">
+                <td className="px-2 sm:px-4 py-2 text-sm whitespace-nowrap">
              
                   <FormControl
                   type="text"
@@ -301,7 +301,7 @@ function Dashboard() {
                   onChange={(e) => handleLocationChange(e, index)}
                 />
                 </td>
-                <td className="px-4 py-2 text-sm whitespace-nowrap ">
+                <td className="px-2 sm:px-4 py-2 text-sm whitespace-nowrap ">
                 <ul className='pt-3 px-0 ' >
                   {client.appointments.map((appointment, index) => (
                     <li key={index} style={{ marginBottom: '10px' }}>
@@ -334,10 +334,10 @@ function Dashboard() {
                 </td>
 
 
-                <td className="px-4 py-2 text-sm whitespace-nowrap">
+                <td className=" px-2 sm:px-4 py-2 text-sm whitespace-nowrap">
                 <Button
-                  variant="primary"
                   size="sm"
+                  className='bg-blue-500'
                   onClick={() => handleShowAddModal(client)}
                 >
                   Add Appointment

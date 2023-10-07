@@ -1,6 +1,6 @@
-# React + Vite
+# Client Management Application
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+This is a front-end web application for managing client data and appointments. It provides a user-friendly interface to add, edit, and delete clients and their appointments. The application also features a calendar view for visualizing appointments.
 
 Currently, two official plugins are available:
 

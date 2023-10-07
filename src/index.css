@@ -9,12 +9,38 @@
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   -webkit-text-size-adjust: 100%;
+
+
+  --yellow: #fdb200;
+  --sb-track-color: transparent;
+  --sb-thumb-color: #aaa;
+  --sb-size: 8px;
 }
 
 body{
   font-family: 'Roboto', sans-serif !important;
   background-color: rgb(218, 239, 255) !important;
+
 }
+
+::-webkit-scrollbar {
+  width: 0.5rem;
+}
+
+::-webkit-scrollbar-thumb {
+  height: 4rem;
+  border-radius: 0.5rem;
+  border: 4px solid transparent;
+  background-clip: content-box;
+   background-color: #d4d4d4;
+
+}
+
+::-webkit-scrollbar-track {
+  height: 0.5rem;
+  background-color: #ffffff;
+}
+
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
