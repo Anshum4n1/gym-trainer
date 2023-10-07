@@ -1,7 +1,7 @@
 
 # Client Management Application
 
-This is a front-end web application for managing client data and appointments. It provides a user-friendly interface to add, edit, and delete clients and their appointments. The application also features a calendar view for visualizing appointments.`https://gym-trainer-kappa.vercel.app/`
+This is a front-end web application for managing client data and appointments. It provides a user-friendly interface to add, edit, and delete clients and their appointments. The application also features a calendar view for visualizing appointments.[Live url](https://gym-trainer-kappa.vercel.app/)
 
 
 ## Prerequisites
