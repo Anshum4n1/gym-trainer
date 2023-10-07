@@ -1,7 +1,37 @@
-import { Button, Modal } from "react-bootstrap"
-import DatePicker from 'react-datepicker';
+import {  Modal } from "react-bootstrap"
+import moment from 'moment/moment';
+import DayTimePicker from '@mooncake-dev/react-day-time-picker';
+import { useState } from 'react';
 
-const EditModal = ({showEditModal,handleCloseEditModal,selectedClient,formData,setFormData,handleEditAppointment}) => {
+const EditModal = ({showEditModal,handleCloseEditModal,selectedClient,formData,setFormData,handleEditAppointment, validSlots}) => {
+
+
+  const [isScheduling, setIsScheduling] = useState(false);
+  const [isScheduled, setIsScheduled] = useState(false);
+  const [scheduleErr, setScheduleErr] = useState('');
+  const handleScheduled = (date) => {
+    setIsScheduling(true);
+    setScheduleErr('');
+    let selectedDate = moment(date).format('L')
+    let selectedTime = moment(date).format().split('T')[1].slice(0, 5)
+    setFormData({ ...formData, time: selectedTime, date: selectedDate, fullDate: date })
+    handleEditAppointment(selectedDate, selectedTime, moment(date).format())
+    setIsScheduling(false)
+    setIsScheduled(true)
+    handleCloseEditModal()
+    setIsScheduled(false)
+  }
+
+  const vaildTimeSlots = (slot) => {
+    for (const currSlot of validSlots) {
+      if (moment(currSlot).format() === moment(slot).format()) {
+        return false;
+      }
+    }
+    return true;
+  }
+
+
   return (
     <Modal show={showEditModal} onHide={handleCloseEditModal} centered >
         <Modal.Header closeButton>
@@ -10,33 +40,17 @@ const EditModal = ({showEditModal,handleCloseEditModal,selectedClient,formData,s
           </Modal.Title>
         </Modal.Header>
         <Modal.Body>
-        <div className="mb-3 flex flex-col gap-1.5">
-            <label>Date</label>
-          <DatePicker
-            selected={formData.date}
-            onChange={(date) => setFormData({ ...formData, date })}
-            dateFormat="MM/dd/yyyy"
-            className='w-full border px-2 py-1.5 rounded '
+          <DayTimePicker
+            timeSlotSizeMinutes={60}
+            isLoading={isScheduling}
+            isDone={isScheduled}
+            err={scheduleErr}
+            onConfirm={handleScheduled}
+            timeSlotValidator={vaildTimeSlots}
+            
           />
-          </div>
-          <div className="mb-3">
-            <label>Time</label>
-            <input
-              type="time"
-              className="form-control"
-              value={formData.time}
-              onChange={(e) => setFormData({ ...formData, time: e.target.value })}
-            />
-          </div>
         </Modal.Body>
-        <Modal.Footer>
-          <Button variant="secondary" onClick={handleCloseEditModal}>
-            Close
-          </Button>
-          <Button variant="primary" onClick={handleEditAppointment}>
-            Save Changes
-          </Button>
-        </Modal.Footer>
+        
       </Modal>
   )
 }

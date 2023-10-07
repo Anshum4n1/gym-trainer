@@ -8,6 +8,7 @@ import EditModal from '../components/EditModal';
 import AddAppointment from '../components/AddAppointment';
 import DeleteIcon from '@mui/icons-material/Delete';
 import EditIcon from '@mui/icons-material/Edit';
+import { Link } from 'react-router-dom';
 
 const CLIENT_DATA = [
   { id: 1, firstName: 'John', lastName: 'Doe', location: 'New York', appointments: [] },
@@ -119,15 +120,15 @@ function Dashboard() {
     setShowEditModal(true);
   };
 
-  const handleEditAppointment = () => {
+  const handleEditAppointment = (selectedDate, selectedTime,fullDate) => {
     if (!selectedClient || selectedAppointment === null) {
       return;
     }
 
     const updatedAppointment = {
-      date: formData.date.toLocaleDateString(),
-      time: formData.time,
-      fullDate: formData.fullDate
+      date: selectedDate,
+      time: selectedTime,
+      fullDate: fullDate
     };
 
     const updatedClients = clients.map((client) => {
@@ -304,13 +305,14 @@ function Dashboard() {
                 <ul className='pt-3 px-0 ' >
                   {client.appointments.map((appointment, index) => (
                     <li key={index} style={{ marginBottom: '10px' }}>
-                    <Button
-                        size="sm"
-                        style={{ marginLeft: '10px', color: 'white' }}
-                        >
-
-                        {appointment.date} at {appointment.time}
-                        </Button>
+                    <Link to = "/calendar">
+                      <Button
+                          size="sm"
+                          style={{ marginLeft: '10px', color: 'white' }}
+                          >
+                          {appointment.date} at {appointment.time}
+                          </Button>
+                    </Link>
                       <Button
                         size="sm"
                         style={{ marginLeft: '10px', color: 'white' }}
@@ -356,7 +358,7 @@ function Dashboard() {
 
       {/* Modal for editing appointment */}
 
-      <EditModal showEditModal={showEditModal} handleCloseEditModal={handleCloseEditModal} selectedClient={selectedClient} formData={formData} setFormData={setFormData} handleEditAppointment={handleEditAppointment} />
+      <EditModal showEditModal={showEditModal} handleCloseEditModal={handleCloseEditModal} selectedClient={selectedClient} formData={formData} setFormData={setFormData} handleEditAppointment={handleEditAppointment} validSlots={validSlots} />
 
 
       {/* Modal for success message */}
