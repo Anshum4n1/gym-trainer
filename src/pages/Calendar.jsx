@@ -18,7 +18,7 @@ function Calendar(  ) {
   const events = clients.reduce((allEvents, client) => {
     const clientEvents = client.appointments.map((appointment) => {
       // Parse the appointment date in the format "MM/dd/yyyy"
-      const appointmentDate = moment(appointment.date, "MM/DD/YYYY");
+      const appointmentDate = moment(appointment.fullDate);
   
       // Format the date to a JavaScript Date object
       const startDate = appointmentDate.toDate();

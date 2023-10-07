@@ -37,14 +37,16 @@ function Dashboard() {
     time: '',
   });
 
+  const [validSlots, setValidSlots] = useState([])
+
   const [clients, setClients] = useState();
 
 
   // Fetch clients data from local storage when the component mounts
   useEffect(() => {
     const clientsData = JSON.parse(localStorage.getItem('clientsData'));
-    console.log(clientsData, "hi");
     if (clientsData) {
+      console.log();
       setClients(clientsData);
     } else {
       setClients(CLIENT_DATA)
@@ -53,8 +55,11 @@ function Dashboard() {
 
   // Update local storage whenever 'clients' change
   useEffect(() => {
-    if (clients) localStorage.setItem('clientsData', JSON.stringify(clients));
+    if (clients) {localStorage.setItem('clientsData', JSON.stringify(clients));
+    getValidSlots(clients)
+  }
   }, [clients]);
+
   const handleFirstNameChange = (e, index) => {
     const updatedClients = [...clients];
     updatedClients[index].firstName = e.target.value;
@@ -122,6 +127,7 @@ function Dashboard() {
     const updatedAppointment = {
       date: formData.date.toLocaleDateString(),
       time: formData.time,
+      fullDate: formData.fullDate
     };
 
     const updatedClients = clients.map((client) => {
@@ -149,15 +155,25 @@ function Dashboard() {
     setShowEditModal(false);
   };
 
-  const handleAddAppointment = () => {
+
+  const getValidSlots = (clientsData) =>{const slots =  clientsData?.map((e)=>{
+    let current = e.appointments
+    let currDate = current.map((item)=>item.fullDate)
+    return currDate
+  })
+  setValidSlots(slots.flat())
+}
+  const handleAddAppointment = (selectedDate, selectedTime,fullDate) => {
     if (!selectedClient) {
       return; // Ensure a client is selected
     }
 
     const newAppointment = {
-      date: formData.date.toLocaleDateString(),
-      time: formData.time,
+      date: selectedDate,
+      time: selectedTime,
+      fullDate: fullDate
     };
+
 
     const updatedClients = clients.map((client) => {
       if (client.id === selectedClient.id) {
@@ -335,7 +351,7 @@ function Dashboard() {
 
 
       {/* Modal for adding appointment */}
-      <AddAppointment setFormData={setFormData} selectedClient={selectedClient} showAddModal={showAddModal} handleCloseAddModal={handleCloseAddModal} formData={formData} handleAddAppointment={handleAddAppointment} />
+      <AddAppointment setFormData={setFormData} selectedClient={selectedClient} showAddModal={showAddModal} handleCloseAddModal={handleCloseAddModal} formData={formData} handleAddAppointment={handleAddAppointment} validSlots={validSlots} />
 
 
       {/* Modal for editing appointment */}

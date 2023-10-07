@@ -1,10 +1,39 @@
-import { Button, Modal } from 'react-bootstrap';
-import DatePicker from 'react-datepicker';
+import {  Modal } from 'react-bootstrap';
+// import DatePicker from 'react-datepicker';
 import 'react-datepicker/dist/react-datepicker.css';
 
+import moment from 'moment/moment';
+import DayTimePicker from '@mooncake-dev/react-day-time-picker';
+import { useState } from 'react';
 
 
-function AddAppointment({setFormData,selectedClient,showAddModal,handleCloseAddModal,formData,handleAddAppointment}) {
+
+function AddAppointment({setFormData,selectedClient,showAddModal,handleCloseAddModal,formData,handleAddAppointment, validSlots}) {
+  const [isScheduling, setIsScheduling] = useState(false);
+  const [isScheduled, setIsScheduled] = useState(false);
+  const [scheduleErr, setScheduleErr] = useState('');
+  const handleScheduled = (date) => {
+    setIsScheduling(true);
+    setScheduleErr('');
+    let selectedDate = moment(date).format('L')
+    let selectedTime =  moment(date).format().split('T')[1].slice(0,5)
+    setFormData({...formData, time: selectedTime, date: selectedDate, fullDate: date})
+    handleAddAppointment(selectedDate,selectedTime,moment(date).format())
+    setIsScheduling(false)
+    setIsScheduled(true)
+    handleCloseAddModal()
+    setIsScheduled(false)
+    }
+
+
+    const vaildTimeSlots = (slot)=>{
+      for(const currSlot of validSlots){
+        if(moment(currSlot).format() === moment(slot).format()) {
+          return false;
+        }
+      }
+      return true;
+    }
 
   return (
     <div>
@@ -18,8 +47,15 @@ function AddAppointment({setFormData,selectedClient,showAddModal,handleCloseAddM
           </Modal.Title>
         </Modal.Header>
         <Modal.Body>
-      
-        <div className="mb-3 flex flex-col gap-1.5">
+        <DayTimePicker
+      timeSlotSizeMinutes={60}
+      isLoading={isScheduling}
+      isDone={isScheduled}
+      err={scheduleErr}
+      onConfirm={handleScheduled}
+      timeSlotValidator={vaildTimeSlots}
+    />
+        {/* <div className="mb-3 flex flex-col gap-1.5">
             <label>Date</label>
           <DatePicker
             selected={formData.date}
@@ -36,16 +72,16 @@ function AddAppointment({setFormData,selectedClient,showAddModal,handleCloseAddM
               value={formData.time}
               onChange={(e) => setFormData({ ...formData, time: e.target.value })}
             />
-          </div>
+          </div> */}
         </Modal.Body>
-        <Modal.Footer>
+        {/* <Modal.Footer>
           <Button variant="secondary" onClick={handleCloseAddModal}>
             Close
           </Button>
           <Button variant="primary" onClick={handleAddAppointment}>
             Add Appointment
           </Button>
-        </Modal.Footer>
+        </Modal.Footer> */}
       </Modal>
     </div>
   );
