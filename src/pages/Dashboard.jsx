@@ -11,12 +11,12 @@ import CustomRow from '../components/CustomRow';
 import { AddOutlined } from '@mui/icons-material';
 
 const CLIENT_DATA = [
-  { id: 1, firstName: 'John', lastName: 'Doe', location: 'New York', appointments: [] },
-  { id: 2, firstName: 'Jane', lastName: 'Smith', location: 'Los Angeles', appointments: [] },
-  { id: 3, firstName: 'Mike', lastName: 'Johnson', location: 'Chicago', appointments: [] },
-  { id: 4, firstName: 'Emily', lastName: 'Brown', location: 'Houston', appointments: [] },
-  { id: 5, firstName: 'William', lastName: 'Jones', location: 'Miami', appointments: [] },
-  { id: 6, firstName: 'Olivia', lastName: 'Davis', location: 'Seattle', appointments: [] },
+  { id: uuidv4(), firstName: 'John', lastName: 'Doe', location: 'New York', appointments: [] },
+  { id: uuidv4(), firstName: 'Jane', lastName: 'Smith', location: 'Los Angeles', appointments: [] },
+  { id: uuidv4(), firstName: 'Mike', lastName: 'Johnson', location: 'Chicago', appointments: [] },
+  { id: uuidv4(), firstName: 'Emily', lastName: 'Brown', location: 'Houston', appointments: [] },
+  { id: uuidv4(), firstName: 'William', lastName: 'Jones', location: 'Miami', appointments: [] },
+  { id: uuidv4(), firstName: 'Olivia', lastName: 'Davis', location: 'Seattle', appointments: [] },
   // Add more dummy clients here
 ]
 
@@ -52,6 +52,7 @@ function Dashboard() {
   // Update local storage whenever 'clients' change
   useEffect(() => {
     if (clients) {localStorage.setItem('clientsData', JSON.stringify(clients));
+    console.log(clients);
     getValidSlots(clients)
   }
   }, [clients]);
@@ -65,12 +66,17 @@ function Dashboard() {
     setSelectedClient(client)
     setIsClient(true)
     setShowDeleteModal(true);
+    
   }
-
+  
   const confirmDeleteClient=()=>{
-    const newClients = clients.filter((i)=> i.id !== selectedClient.id)
-    setClients(newClients)
+console.log(selectedClient);
+    const newClients = [...clients].filter((i)=> i.id !== selectedClient.id)
+    console.log(newClients);
+    setClients([...newClients])
+  
     setShowDeleteModal(false)
+    // setSelectedClient('');
   }
 
   const handleAddClient = (firstName, lastName, location) => { 
@@ -272,8 +278,8 @@ function Dashboard() {
             </tr>
           </thead>
           <tbody className="bg-white divide-y divide-x divide-gray-200 ">
-            {clients?.map((client, index) => (
-              <CustomRow client={client} key={index}  index={index} updateClient={updateClient}  handleShowEditModal={handleShowEditModal} handleDeleteAppointment={handleDeleteAppointment} handleShowAddModal={handleShowAddModal} handleDeleteClient={handleDeleteClient} /> 
+            {clients && clients?.map((client, index) => (
+              <CustomRow client={client} key={client.id}  index={index} updateClient={updateClient}  handleShowEditModal={handleShowEditModal} handleDeleteAppointment={handleDeleteAppointment} handleShowAddModal={handleShowAddModal} handleDeleteClient={handleDeleteClient} /> 
             ))}
           </tbody>
 
