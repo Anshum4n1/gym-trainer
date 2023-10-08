@@ -50,6 +50,7 @@ This is a front-end web application for managing client data and appointments. I
 - To add a client, click the "Add Client" button on the homepage.
 - To schedule an appointment, use the "Add Appointment" button in the Action column in table.
 - To make changes to an appointment, utilize the edit and delete buttons associated with a specific appointment.
+- Appointments are in slots of one hour and duplicate slots are not allowed.
 - To edit or delete the client, utilize the edit and delete buttons in the Action column in table.
 - Access the Calendar section by clicking the "Calendar" link in the navigation bar.
 
