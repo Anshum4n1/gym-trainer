@@ -64,6 +64,7 @@ function CustomRow({client, index,updateClient,  handleShowEditModal ,handleDele
           <Button 
           variant='contained'
               size="sm"
+              style={{  'minWidth': 'unset'}}
               className='bg-blue-500 shadow-none  '
       disabled={isEditing}
 
@@ -75,7 +76,7 @@ function CustomRow({client, index,updateClient,  handleShowEditModal ,handleDele
           variant='contained'
             size="sm"
             className='bg-blue-500 shadow-none w-8 '
-            style={{'backgroundColor': isEditing ? 'rgba(0, 0, 0, 0.12)' :  'rgb(234 179 8 )' }}
+            style={{'backgroundColor': isEditing ? 'rgba(0, 0, 0, 0.12)' :  'rgb(234 179 8 )',   'minWidth': 'unset' }}
             onClick={() => handleShowEditModal(client, appointment)}
             disabled={isEditing}
           >
@@ -85,7 +86,7 @@ function CustomRow({client, index,updateClient,  handleShowEditModal ,handleDele
           variant='contained'
       size="sm"
       className='bg-blue-500 shadow-none w-8 '
-      style={{'backgroundColor': isEditing ? 'rgba(0, 0, 0, 0.12)' : ' rgb(239 68 68)' }}
+      style={{'backgroundColor': isEditing ? 'rgba(0, 0, 0, 0.12)' : ' rgb(239 68 68)',   'minWidth': 'unset' }}
       onClick={() => handleDeleteAppointment(client)}
       disabled={isEditing}
 
@@ -103,6 +104,7 @@ function CustomRow({client, index,updateClient,  handleShowEditModal ,handleDele
         <Button
         variant='contained'
           size="sm"
+          style={{  'minWidth': 'unset'}}
           className='bg-blue-500 shadow-none w-8 '
           onClick={() => handleShowAddModal(client)}
           disabled={isEditing}
@@ -112,7 +114,7 @@ function CustomRow({client, index,updateClient,  handleShowEditModal ,handleDele
         {!isEditing ?<Button
         variant='contained'
           size="sm"
-          style={{'backgroundColor': isEditing ? 'rgba(0, 0, 0, 0.12)' :  'rgb(234 179 8 )' }}
+          style={{'backgroundColor': isEditing ? 'rgba(0, 0, 0, 0.12)' :  'rgb(234 179 8 )',   'minWidth': 'unset' }}
           className=' shadow-none w-8 '
           onClick={() => setIsEditing(true)}
         >
@@ -122,7 +124,7 @@ function CustomRow({client, index,updateClient,  handleShowEditModal ,handleDele
         <Button
         variant='contained'
           size="sm"
-          style={{'backgroundColor':  'rgb(22 163 74)' }}
+          style={{'backgroundColor':  'rgb(22 163 74)',  'minWidth': 'unset' }}
           className='bg-green-600 shadow-none w-8  '
           onClick={() => handleSubmit()}
         >
@@ -131,7 +133,7 @@ function CustomRow({client, index,updateClient,  handleShowEditModal ,handleDele
         <Button
             variant='contained'
           size="sm"
-          style={{'backgroundColor':  isEditing ? 'rgba(0, 0, 0, 0.12)' :  'rgb(239 68 68)' }}
+          style={{'backgroundColor':  isEditing ? 'rgba(0, 0, 0, 0.12)' :  'rgb(239 68 68)',  'minWidth': 'unset' }}
           className='bg-red-500 shadow-none w-8 '
           onClick={() => handleDeleteClient(client)}
           disabled={isEditing}
