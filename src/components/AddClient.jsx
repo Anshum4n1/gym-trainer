@@ -1,6 +1,25 @@
+import { useState } from "react"
 import { Button, FormControl, Modal } from "react-bootstrap"
 
-function AddClient({showAddClientModal, setNewClientFormData,setShowAddClientModal,newClientFormData, handleAddClient}) {
+function AddClient({showAddClientModal,setShowAddClientModal, handleAddClient}) {
+
+  const [firstName, setFirstName] =  useState();
+  const [lastName, setLastName] =  useState();
+  const [location, setLocation] =  useState();
+  const [isSubmitted, setIsSumitted ] = useState(false)
+
+  const handleSubmit = () =>{
+    setIsSumitted(true)
+    if(firstName && lastName && location) {
+      handleAddClient(firstName, lastName, location)
+      setFirstName('')
+      setLastName('')
+      setLocation('')
+      setIsSumitted(false)
+    }
+  }
+   
+
   return (
     <div> <Modal show={showAddClientModal} onHide={() => setShowAddClientModal(false)} centered>
     <Modal.Header closeButton>
@@ -11,26 +30,32 @@ function AddClient({showAddClientModal, setNewClientFormData,setShowAddClientMod
         <FormControl
           type="text"
           placeholder="First Name"
-          value={newClientFormData.firstName}
+          required
+          value={firstName}
           onChange={(e) =>
-            setNewClientFormData({ ...newClientFormData, firstName: e.target.value })
+          setFirstName( e.target.value) 
           }
+          isInvalid={isSubmitted && !firstName}
         />
         <FormControl
           type="text"
           placeholder="Last Name"
-          value={newClientFormData.lastName}
+          required
+          value={lastName}
           onChange={(e) =>
-            setNewClientFormData({ ...newClientFormData, lastName: e.target.value })
+            setLastName( e.target.value )
           }
+          isInvalid={isSubmitted && !lastName}
         />
         <FormControl
           type="text"
           placeholder="Location"
-          value={newClientFormData.location}
+          required
+          value={location}
           onChange={(e) =>
-            setNewClientFormData({ ...newClientFormData, location: e.target.value })
+            setLocation( e.target.value )
           }
+          isInvalid={isSubmitted && !location}
         />
       </div>
     </Modal.Body>
@@ -38,7 +63,7 @@ function AddClient({showAddClientModal, setNewClientFormData,setShowAddClientMod
       <Button variant="secondary" onClick={() => setShowAddClientModal(false)}>
         Close
       </Button>
-      <Button variant="primary" onClick={handleAddClient}>
+      <Button variant="primary" type="submit" onClick={handleSubmit}>
         Add Client
       </Button>
     </Modal.Footer>

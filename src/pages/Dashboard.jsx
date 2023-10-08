@@ -1,14 +1,13 @@
 import { useState, useEffect } from 'react';
-import { Button, FormControl } from 'react-bootstrap';
+import { Button } from 'react-bootstrap';
 import 'react-datepicker/dist/react-datepicker.css';
 import SuccessModal from '../components/SuccessModal';
 import DeleteModal from '../components/DeleteModal';
 import AddClient from '../components/AddClient';
 import EditModal from '../components/EditModal';
 import AddAppointment from '../components/AddAppointment';
-import DeleteIcon from '@mui/icons-material/Delete';
-import EditIcon from '@mui/icons-material/Edit';
-import { Link } from 'react-router-dom';
+import { v4 as uuidv4 } from 'uuid';
+import CustomRow from '../components/CustomRow';
 
 const CLIENT_DATA = [
   { id: 1, firstName: 'John', lastName: 'Doe', location: 'New York', appointments: [] },
@@ -28,11 +27,6 @@ function Dashboard() {
   const [selectedClient, setSelectedClient] = useState(null);
   const [selectedAppointment, setSelectedAppointment] = useState(null);
   const [showAddClientModal, setShowAddClientModal] = useState(false); // Add this state variable
-  const [newClientFormData, setNewClientFormData] = useState({ // Add this state variable
-    firstName: '',
-    lastName: '',
-    location: '',
-  });
   const [formData, setFormData] = useState({
     date: null,
     time: '',
@@ -47,7 +41,6 @@ function Dashboard() {
   useEffect(() => {
     const clientsData = JSON.parse(localStorage.getItem('clientsData'));
     if (clientsData) {
-      console.log();
       setClients(clientsData);
     } else {
       setClients(CLIENT_DATA)
@@ -61,44 +54,42 @@ function Dashboard() {
   }
   }, [clients]);
 
-  const handleFirstNameChange = (e, index) => {
-    const updatedClients = [...clients];
-    updatedClients[index].firstName = e.target.value;
-    setClients(updatedClients);
-  };
-  const handleShowAddClientModal = () => { // Function to show "Add Client" modal
+  const handleShowAddClientModal = () => {
     setShowAddClientModal(true);
   };
 
-  const handleAddClient = () => { // Function to handle adding a new client
+
+  const handleDeleteClient = (e) =>{
+    console.log(e);
+    const newClients = clients.filter((i)=> i.id !== e.id)
+
+    setClients(newClients)
+  }
+
+  const handleAddClient = (firstName, lastName, location) => { 
     const newClient = {
-      id: clients.length + 1, // Generate a new ID based on the current client count
-      ...newClientFormData,
+      id: uuidv4(), // Generate a new ID 
+      firstName,
+      lastName,
+      location,
       appointments: [],
     };
 
     const updatedClients = [...clients, newClient];
     setClients(updatedClients);
-    setNewClientFormData({
-      firstName: '',
-      lastName: '',
-      location: '',
-    });
-
-    // Close the "Add Client" modal
     setShowAddClientModal(false);
   };
-  const handleLastNameChange = (e, index) => {
-    const updatedClients = [...clients];
-    updatedClients[index].lastName = e.target.value;
-    setClients(updatedClients);
-  };
 
-  const handleLocationChange = (e, index) => {
+  const updateClient  = (index,firstName, lastName, location) => { 
+    console.log(index,firstName, lastName, location);
     const updatedClients = [...clients];
-    updatedClients[index].location = e.target.value;
-    setClients(updatedClients);
-  };
+    updatedClients[index].firstName= firstName;
+    updatedClients[index].lastName = lastName;
+    updatedClients[index].location = location;
+    setClients(updatedClients)
+ 
+
+  }
 
   const handleShowAddModal = (client) => {
     setSelectedClient(client);
@@ -274,76 +265,9 @@ function Dashboard() {
 
             </tr>
           </thead>
-          <tbody className="bg-white divide-y divide-gray-200 ">
+          <tbody className="bg-white divide-y divide-x divide-gray-200 ">
             {clients?.map((client, index) => (
-              <tr key={client.id} className=' hover:bg-slate-50 '>
-                <td className="px-2 sm:px-4 py-0 text-sm font-medium whitespace-nowrap">
-           
-                  <FormControl
-                    type="text"
-                    value={client.firstName}
-                    onChange={(e) => handleFirstNameChange(e, index)}
-                  />
-                </td>
-                <td className="px-2 sm:px-4 py-2 text-sm font-medium whitespace-nowrap">
-          
-                  <FormControl
-                  type="text"
-                  value={client.lastName}
-                  onChange={(e) => handleLastNameChange(e, index)}
-                />
-                </td>
-                <td className="px-2 sm:px-4 py-2 text-sm whitespace-nowrap">
-             
-                  <FormControl
-                  type="text"
-                  value={client.location}
-                  onChange={(e) => handleLocationChange(e, index)}
-                />
-                </td>
-                <td className="px-2 sm:px-4 py-2 text-sm whitespace-nowrap ">
-                <ul className='pt-3 px-0 ' >
-                  {client.appointments.map((appointment, index) => (
-                    <li key={index} style={{ marginBottom: '10px' }}>
-                    <Link to = "/calendar">
-                      <Button
-                          size="sm"
-                          style={{ marginLeft: '10px', color: 'white' }}
-                          >
-                          {appointment.date} at {appointment.time}
-                          </Button>
-                    </Link>
-                      <Button
-                        size="sm"
-                        style={{ marginLeft: '10px', color: 'white' }}
-                        onClick={() => handleShowEditModal(client, appointment)}
-                      >
-                        <EditIcon fontSize='small' color='white' />
-                      </Button>
-                      <Button
-                        variant="danger"
-                        size="sm"
-                        style={{ marginLeft: '10px' }}
-                        onClick={() => handleDeleteAppointment(client, index)}
-                      >
-                        <DeleteIcon fontSize='small' />
-                      </Button>
-                    </li>
-                  ))}
-                </ul>
-                </td>
-
-
-                <td className=" px-2 sm:px-4 py-2 text-sm whitespace-nowrap">
-                <Button
-                  size="sm"
-                  className='bg-blue-500'
-                  onClick={() => handleShowAddModal(client)}
-                >
-                  Add Appointment
-                </Button>
-                </td>
-              </tr>
+              <CustomRow client={client} key={index}  index={index} updateClient={updateClient}  handleShowEditModal={handleShowEditModal} handleDeleteAppointment={handleDeleteAppointment} handleShowAddModal={handleShowAddModal} handleDeleteClient={handleDeleteClient} /> 
             ))}
           </tbody>
 
@@ -367,7 +291,7 @@ function Dashboard() {
       {/* Modal for confirmation on delete */}
       <DeleteModal showDeleteModal={showDeleteModal} handleCloseDeleteModal={handleCloseDeleteModal} confirmDeleteAppointment={confirmDeleteAppointment} />
 
-      <AddClient showAddClientModal={showAddClientModal} setNewClientFormData={setNewClientFormData} setShowAddClientModal={setShowAddClientModal} newClientFormData={newClientFormData} handleAddClient={handleAddClient} />
+      <AddClient showAddClientModal={showAddClientModal} setShowAddClientModal={setShowAddClientModal}  handleAddClient={handleAddClient} />
     </div>
   );
 }

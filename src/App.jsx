@@ -10,7 +10,7 @@ function App() {
       <Router>
         <div className=''>
             <Header />
-            <div className='mx-2 sm:mx-10 my-4 '>
+            <div className=' md:mx-10   my-4 '>
               <Routes>
                 <Route path="/" element={<Dashboard />} />
                 <Route path="/calendar" element={<Calendar />} />

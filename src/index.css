@@ -49,6 +49,11 @@ body{
 .form-control{
   font-size: 14px !important;
 }
+
+.form-control:disabled{
+  background-color: inherit !important;
+  border:  none;
+}
 .rbc-calendar{
   background-color: white !important;
   padding: 25px 20px;
