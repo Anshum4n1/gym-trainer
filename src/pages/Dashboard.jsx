@@ -8,6 +8,7 @@ import EditModal from '../components/EditModal';
 import AddAppointment from '../components/AddAppointment';
 import { v4 as uuidv4 } from 'uuid';
 import CustomRow from '../components/CustomRow';
+import { AddOutlined } from '@mui/icons-material';
 
 const CLIENT_DATA = [
   { id: 1, firstName: 'John', lastName: 'Doe', location: 'New York', appointments: [] },
@@ -27,6 +28,7 @@ function Dashboard() {
   const [selectedClient, setSelectedClient] = useState(null);
   const [selectedAppointment, setSelectedAppointment] = useState(null);
   const [showAddClientModal, setShowAddClientModal] = useState(false); // Add this state variable
+  const [isClient, setIsClient] = useState()
   const [formData, setFormData] = useState({
     date: null,
     time: '',
@@ -59,11 +61,16 @@ function Dashboard() {
   };
 
 
-  const handleDeleteClient = (e) =>{
-    console.log(e);
-    const newClients = clients.filter((i)=> i.id !== e.id)
+  const handleDeleteClient = (client) =>{
+    setSelectedClient(client)
+    setIsClient(true)
+    setShowDeleteModal(true);
+  }
 
+  const confirmDeleteClient=()=>{
+    const newClients = clients.filter((i)=> i.id !== selectedClient.id)
     setClients(newClients)
+    setShowDeleteModal(false)
   }
 
   const handleAddClient = (firstName, lastName, location) => { 
@@ -87,8 +94,6 @@ function Dashboard() {
     updatedClients[index].lastName = lastName;
     updatedClients[index].location = location;
     setClients(updatedClients)
- 
-
   }
 
   const handleShowAddModal = (client) => {
@@ -192,6 +197,7 @@ function Dashboard() {
   const handleDeleteAppointment = (client, appointmentIndex) => {
     setSelectedClient(client);
     setSelectedAppointment(appointmentIndex);
+    setIsClient(false)
     setShowDeleteModal(true);
   };
 
@@ -238,8 +244,8 @@ function Dashboard() {
     <div className='flex flex-col gap-4' >
 
       <div className='flex justify-end '>
-        <Button variant="success" onClick={handleShowAddClientModal}>
-          Add Client
+        <Button variant="success" onClick={handleShowAddClientModal} className='flex items-center' >
+        <AddOutlined fontSize='small' color='blue' /> Add Client
         </Button>
       </div>
       <div className="overflow-x-scroll sm:overflow-x-hidden border border-gray-200 shadow-md md:rounded-lg">
@@ -289,7 +295,7 @@ function Dashboard() {
       <SuccessModal showSuccessModal={showSuccessModal} handleCloseSuccessModal={handleCloseSuccessModal} />
 
       {/* Modal for confirmation on delete */}
-      <DeleteModal showDeleteModal={showDeleteModal} handleCloseDeleteModal={handleCloseDeleteModal} confirmDeleteAppointment={confirmDeleteAppointment} />
+      <DeleteModal showDeleteModal={showDeleteModal} handleCloseDeleteModal={handleCloseDeleteModal} confirmDeleteAppointment={confirmDeleteAppointment} confirmDeleteClient={confirmDeleteClient} isClient={isClient} />
 
       <AddClient showAddClientModal={showAddClientModal} setShowAddClientModal={setShowAddClientModal}  handleAddClient={handleAddClient} />
     </div>

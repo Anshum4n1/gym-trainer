@@ -36,7 +36,7 @@ const EditModal = ({showEditModal,handleCloseEditModal,selectedClient,formData,s
     <Modal show={showEditModal} onHide={handleCloseEditModal} centered >
         <Modal.Header closeButton>
           <Modal.Title>
-            Edit Appointment for {selectedClient?.firstName} {selectedClient?.lastName}
+            Edit Appointment for <span className="text-blue-400">{selectedClient?.firstName} {selectedClient?.lastName}</span>
           </Modal.Title>
         </Modal.Header>
         <Modal.Body>

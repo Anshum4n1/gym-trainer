@@ -43,7 +43,7 @@ function AddAppointment({ setFormData, selectedClient, showAddModal, handleClose
 
         <Modal.Header closeButton>
           <Modal.Title>
-            Add Appointment for {selectedClient?.firstName} {selectedClient?.lastName}
+            Add Appointment for <span className="text-blue-400">{selectedClient?.firstName} {selectedClient?.lastName}</span>
           </Modal.Title>
         </Modal.Header>
         <Modal.Body>

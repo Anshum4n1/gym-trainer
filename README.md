@@ -3,13 +3,6 @@
 
 This is a front-end web application for managing client data and appointments. It provides a user-friendly interface to add, edit, and delete clients and their appointments. The application also features a calendar view for visualizing appointments. [https://gym-trainer-kappa.vercel.app/](https://gym-trainer-kappa.vercel.app/)
 
-
-## Prerequisites
-
-Before you begin, ensure you have met the following requirements:
-
-- Node.js: Make sure you have Node.js installed. You can download it from [nodejs.org](https://nodejs.org/).
-
 ## Getting Started
 
 ### Installation
@@ -44,17 +37,20 @@ Before you begin, ensure you have met the following requirements:
 
 ## Images
 
-![Home page](image.png)
+![Home Page](image-2.png)
 
-![Calendar page](image-1.png)
+![Calendar Page](image-4.png)
+
+![Agenda Section(Calendar Page)](image-3.png)
 
 ## Usage
 
 - **Dashboard**: The dashboard is the main interface for managing clients and appointments. You can add new clients, edit existing client information, and schedule appointments for clients.
 - **Calendar**: The calendar page displays appointments in a visual calendar format. You can view appointments for different clients and dates.
 - To add a client, click the "Add Client" button on the homepage.
-- To schedule an appointment, use the "Add Appointment" button in the table.
+- To schedule an appointment, use the "Add Appointment" button in the Action column in table.
 - To make changes to an appointment, utilize the edit and delete buttons associated with a specific appointment.
+- To edit or delete the client, utilize the edit and delete buttons in the Action column in table.
 - Access the Calendar section by clicking the "Calendar" link in the navigation bar.
 
 
